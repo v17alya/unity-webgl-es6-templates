@@ -1,0 +1,187 @@
+/*style.css*/
+html {
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+    background-size: cover;
+}
+
+#version-overlay {
+    position: fixed;
+    left: 8px;
+    bottom: 8px;
+    z-index: 10000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #9A9A9A;
+    pointer-events: none;
+}
+
+#unity-container {
+    /* position: absolute; */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+ #logo {
+      position: absolute;
+      width: 100%;
+      /* max-width: 400px; */
+      /* display: none; */
+    }
+
+/* for some reasons this unity standart class style leads to blurring (bad quality of textures, fonts, etc)  */
+/* #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) } */
+
+#unity-container.unity-mobile { position: fixed; width: 100%; height: 100% }
+#unity-canvas { width: 100%; height: 100%; background: {{{ BACKGROUND_COLOR }}} }
+.unity-mobile #unity-canvas { width: 100%; height: 100% }
+#unity-logo { width: 154px; height: 130px; background: url('../unity-logo-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center }
+
+#unity-loading-bar { position: absolute; left: 50%; bottom: 5px; transform: translate(-50%, -50%); display: none }
+#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; margin-left: 6.5px; background: url('../progress-bar-empty-dark.png') no-repeat center }
+#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('../progress-bar-full-dark.png') no-repeat center; transition: width 0.5s ease-out; }
+/* #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none } */
+/* #unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; margin-left: 6.5px; background: url('../progress-bar-empty-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center } */
+/* #unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('../progress-bar-full-{{{ SPLASH_SCREEN_STYLE.toLowerCase() }}}.png') no-repeat center } */
+
+#unity-footer { position: fixed; bottom: 40px }
+.unity-mobile #unity-footer { display: none }
+#unity-webgl-logo { float:left; width: 204px; height: 38px; background: url('../webgl-logo.png') no-repeat center }
+#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
+#unity-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('../fullscreen-button.png') no-repeat center }
+#unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
+
+#loader_canvas_div {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+.loading-text {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* font-size: 2.8vw; */
+    font-size: 48px;
+    /* font-size: 3em; */
+    font-family: Arial, sans-serif;
+    z-index: 9999;
+    color: white;
+    font-weight: bold;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 2px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+@media (orientation: portrait) {
+    .loading-text {
+        font-size: 5vw;
+    }
+
+    .dot {
+        width: 1.2vw;
+        height: 1.2vw;
+        margin: 0 0.2vw;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 768px) {
+    .loading-text {
+        font-size: 3vw;
+    }
+
+    .dot {
+        width: 0.7vw;
+        height: 0.7vw;
+        margin: 0 0.2vw;
+    }
+}
+
+.dot:nth-child(1) {
+    opacity: 1;
+}
+
+.dot:nth-child(2) {
+    animation: showSecondDot 1.25s infinite;
+}
+
+.dot:nth-child(3) {
+    animation: showThirdDot 1.25s infinite;
+}
+
+    @keyframes showSecondDot {
+    0%, 30% {
+        opacity: 0;
+    }
+    31%, 100% {
+        opacity: 1;
+    }
+}
+
+@keyframes showThirdDot {
+    0%, 60% {
+        opacity: 0;
+    }
+    61%, 100% {
+        opacity: 1;
+    }
+}
+
+#start-container {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+#start-button {
+    font-size: 36px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #00C74F;
+    border: none;
+    padding: 15px 110px;
+    cursor: pointer;
+    /* border-radius: 12px; */
+    position: relative;
+    z-index: 1;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 0 rgba(0, 199, 79, 0.4);
+    transition: transform 0.2s ease-in-out;
+}
+
+#start-button:hover {
+    transform: scale(1.05);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 199, 79, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(0, 199, 79, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 199, 79, 0);
+    }
+}

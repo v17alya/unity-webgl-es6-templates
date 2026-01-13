@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>{{{ PRODUCT_NAME }}}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{{{ PRODUCT_DESCRIPTION }}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="TemplateData/favicon.ico">
+        <link rel="stylesheet" href="TemplateData/css/style.css?v={{{ PRODUCT_VERSION }}}">
+        <script src="src/modulepath.bootstrap.js"></script>
+    </head>
+    <body>
+        <div id="version-overlay" style="display: none;">
+            V{{{ PRODUCT_VERSION }}}
+        </div>
+        <div id="unity-container" class="unity-desktop" style="display:none">
+            <div id="loader_canvas_div">
+                <div class="loading-text" id="loading-text" style="display: none;">LOADING<span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <div id="unity-loading-bar">
+                    <div id="unity-progress-bar-empty">
+                        <div id="unity-progress-bar-full"></div>
+                    </div>
+                </div>
+            </div>
+            <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} tabindex="-1"></canvas>
+            <div id="unity-warning"></div>
+            <div id="unity-footer"></div>
+        </div>
+
+        <script type="module">
+            import { startUnity } from "./src/bootstrapper.module.js?v={{{ PRODUCT_VERSION }}}";
+            const buildUrl = "Build";
+
+            // Configuration is loaded from config.module.js
+            // You can override values via URL query parameters or modify config.module.js directly
+            const options = {
+                loaderUrl: buildUrl + "/{{{ LOADER_FILENAME }}}",
+                dataFilePcUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+                dataFileMobileUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+                frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+                streamingAssetsUrl: "StreamingAssets",
+                buildUrl: buildUrl,
+                companyName: "{{{ COMPANY_NAME }}}",
+                productName: "{{{ PRODUCT_NAME }}}",
+
+                #if USE_THREADS
+                workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
+                #endif
+                #if USE_WASM
+                codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+                #endif
+                #if MEMORY_FILENAME
+                memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+                #endif
+                #if SYMBOLS_FILENAME
+                symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+                #endif
+
+                productVersion: "{{{ PRODUCT_VERSION }}}"
+            };
+
+            startUnity(options).catch(console.error);
+        </script>
+    </body>
+</html>
